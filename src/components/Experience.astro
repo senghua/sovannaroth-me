@@ -1,0 +1,154 @@
+---
+const roles = [
+  {
+    org: "EAST BUY CO., LTD",
+    title: "Senior UX/UI Designer",
+    period: "March 2025 — Present",
+    body: "Leading design of the platform's core food delivery ecosystem — Customer, Driver, Merchant apps, and Admin Dashboard. Promoted from UX/UI Designer to Senior UX/UI Designer. Responsible for collaborating with product, engineering, and business teams to align and deliver requirements across all platforms, conducting user and stakeholder interviews to translate pain points into design decisions, and building a design system with reusable components to ensure consistency across the ecosystem, backed by ongoing usability testing.",
+  },
+  {
+    org: "Sambath Home Kitchen & Furniture",
+    title: "Product Designer",
+    period: "Mar 2023 — Jan 2025",
+    body: "I was responsible for designing and maintaining the Sambath Home website, improving how users browse and discover furniture products. I shaped marketing campaign direction based on business goals, sales feedback, and client input, and produced brand visuals while directing photo and video content from completed projects — working closely with the digital team to keep site and brand assets consistent.",
+  },
+  {
+    org: "Tech-Zone Group",
+    title: "Multimedia Designer",
+    period: "Mar 2021 — Mar 2023",
+    body: "I was responsible for multimedia campaigns and branded content for consumer electronics brands including Xiaomi, Amazfit, and Kieslect. I created marketing visuals, motion graphics, and photography across digital platforms, and collaborated with influencers and public figures to support product launches and drive engagement.",
+  },
+];
+
+const volunteer = {
+  org: "Tumpeang Kuch",
+  title: "Product Designer (Volunteer)",
+  period: "Aug 2024 — Present",
+  body: "I led UX/UI design for the organization's website and designed the community's brand guide. I also trained junior designers and students on UX/UI design.",
+};
+---
+
+<section id="experience" class="section">
+  <div class="wrap">
+    <p class="eyebrow reveal center">Experience</p>
+    <h2 class="section-heading reveal center">Work Experience</h2>
+
+    <div class="timeline">
+      {
+        roles.map((role) => (
+          <div class="timeline-item reveal">
+            <div class="timeline-marker" />
+            <div class="timeline-content">
+              <div class="timeline-head">
+                <h3>{role.title}</h3>
+                <span class="timeline-period">{role.period}</span>
+              </div>
+              <p class="timeline-org">{role.org}</p>
+              {role.note && <p class="timeline-note">{role.note}</p>}
+              <p class="timeline-body">{role.body}</p>
+            </div>
+          </div>
+        ))
+      }
+
+      <div class="timeline-item timeline-item-secondary reveal">
+        <div class="timeline-marker" />
+        <div class="timeline-content">
+          <div class="timeline-head">
+            <h3>{volunteer.title}</h3>
+            <span class="timeline-period">{volunteer.period}</span>
+          </div>
+          <p class="timeline-org">{volunteer.org}</p>
+          <p class="timeline-body">{volunteer.body}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .timeline {
+    max-width: 760px;
+    margin: 64px auto 0;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: var(--color-border);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-left: 32px;
+    padding-bottom: 40px;
+  }
+
+  .timeline-item:last-child {
+    padding-bottom: 0;
+  }
+
+  .timeline-marker {
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--color-primary);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-primary) 15%, transparent);
+  }
+
+  .timeline-item-secondary .timeline-marker {
+    background: var(--color-ink-soft);
+    box-shadow: none;
+  }
+
+  .timeline-item-secondary {
+    opacity: 0.85;
+  }
+
+  .timeline-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 8px 16px;
+  }
+
+  .timeline-head h3 {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .timeline-period {
+    font-size: 13px;
+    color: var(--color-ink-soft);
+  }
+
+  .timeline-org {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-primary);
+    margin-top: 4px;
+  }
+
+  .timeline-note {
+    font-size: 13px;
+    color: var(--color-ink-soft);
+    margin-top: 2px;
+    font-style: italic;
+  }
+
+  .timeline-body {
+    margin-top: 10px;
+    color: var(--color-ink-soft);
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 580px;
+  }
+</style>

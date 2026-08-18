@@ -1,0 +1,92 @@
+---
+const { project } = Astro.props;
+---
+
+<article class="card reveal">
+  <div class="mock-placeholder">
+    <span class="mock-label">Thumbnail of project</span>
+  </div>
+
+  <div class="card-body">
+    <h3 class="card-name">{project.name}</h3>
+    <p class="card-subtitle">{project.subtitle}</p>
+    <button class="card-cta" type="button" data-open-case={project.slug}>
+      View Project
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+        <path d="M3 11L11 3M11 3H4M11 3V10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+  </div>
+</article>
+
+<style>
+  .card {
+    background: var(--color-surface);
+    border-radius: 20px;
+    border: 1px solid var(--color-border);
+    overflow: hidden;
+    transition: transform 320ms var(--ease-out), box-shadow 320ms var(--ease-out);
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 48px -24px rgba(29, 29, 31, 0.18);
+  }
+
+  .mock-placeholder {
+    aspect-ratio: 16 / 10;
+    background: var(--color-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 24px;
+  }
+
+  .mock-label {
+    font-size: clamp(18px, 2vw, 22px);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--color-ink);
+  }
+
+  .card-body {
+    padding: 28px;
+  }
+
+  .card-name {
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+
+  .card-subtitle {
+    color: var(--color-ink-soft);
+    font-size: 15px;
+    line-height: 1.55;
+    margin-bottom: 20px;
+  }
+
+  .card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--color-primary);
+    cursor: pointer;
+  }
+
+  .card-cta svg {
+    transition: transform 240ms var(--ease-out);
+  }
+
+  .card-cta:hover svg {
+    transform: translate(2px, -2px);
+  }
+</style>

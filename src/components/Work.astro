@@ -1,0 +1,60 @@
+---
+import ProjectCard from "./ProjectCard.astro";
+import CaseStudyModal from "./CaseStudyModal.astro";
+import { projects } from "../data/projects";
+---
+
+<section id="work" class="section section-bg">
+  <div class="wrap">
+    <p class="eyebrow reveal center">work</p>
+    <h2 class="section-heading center reveal">Selected projects</h2>
+    <p class="section-lede center reveal">
+      A look at the platforms I've led design for — from a four-app delivery ecosystem to brand and web work for
+      independent businesses.
+    </p>
+
+    <div class="work-grid">
+      {projects.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </div>
+</section>
+
+{projects.map((project) => <CaseStudyModal project={project} />)}
+
+<script>
+  document.addEventListener("click", (e) => {
+    const target = e.target as HTMLElement;
+    const openTrigger = target.closest<HTMLElement>("[data-open-case]");
+    if (openTrigger) {
+      const slug = openTrigger.dataset.openCase;
+      const dialog = document.getElementById(`cs-${slug}`) as HTMLDialogElement | null;
+      dialog?.showModal();
+      return;
+    }
+
+    const closeTrigger = target.closest<HTMLElement>("[data-close-case]");
+    if (closeTrigger) {
+      closeTrigger.closest("dialog")?.close();
+      return;
+    }
+
+    const dialogEl = target.closest("dialog.case-dialog") as HTMLDialogElement | null;
+    if (dialogEl && e.target === dialogEl) {
+      dialogEl.close();
+    }
+  });
+</script>
+
+<style>
+  .work-grid {
+    display: grid;
+    gap: 24px;
+    margin-top: 64px;
+  }
+
+  @media (min-width: 800px) {
+    .work-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

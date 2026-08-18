@@ -1,0 +1,45 @@
+---
+import "../styles/global.css";
+import smallAvatar from "../assets/smallAvatar.svg";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Sovannaroth Ry — Senior UX/UI Designer",
+  description = "Senior UX/UI Designer based in Phnom Penh, Cambodia. Leads design across Customer, Driver, Merchant, and Admin experiences at EAST BUY.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href={smallAvatar.src} />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in-view");
+              observer.unobserve(entry.target);
+            }
+          }
+        },
+        { threshold: 0.15, rootMargin: "0px 0px -60px 0px" }
+      );
+
+      document.querySelectorAll(".reveal, .reveal-scale").forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>

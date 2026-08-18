@@ -1,0 +1,147 @@
+---
+const { project } = Astro.props;
+---
+
+<dialog id={`cs-${project.slug}`} class="case-dialog" style={`--accent: ${project.accent}`}>
+  <div class="case-band">
+    <button class="case-close" type="button" data-close-case aria-label="Close case study">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+        <path d="M2 2L14 14M14 2L2 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+      </svg>
+    </button>
+    <div class="wrap case-band-inner">
+      <p class="eyebrow" style="color:#fff">{project.subtitle}</p>
+      <h2 class="case-title">{project.name}</h2>
+      <p class="case-role">{project.role} · {project.period}</p>
+    </div>
+  </div>
+
+  <div class="wrap case-content">
+    <section class="case-section">
+      <h3>Project Overview</h3>
+      <p>{project.problem}</p>
+    </section>
+
+    <section class="case-section">
+      <div class="mock-list">
+        {
+          [1, 2, 3].map(() => (
+            <div class="mock-placeholder" />
+          ))
+        }
+      </div>
+    </section>
+  </div>
+</dialog>
+
+<style>
+  .case-dialog {
+    width: min(920px, 92vw);
+    max-height: 88vh;
+    padding: 0;
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    overflow-y: auto;
+    color: var(--color-ink);
+  }
+
+  .case-dialog::backdrop {
+    background: rgba(29, 29, 31, 0.55);
+    backdrop-filter: blur(4px);
+  }
+
+  .case-band {
+    position: relative;
+    background: linear-gradient(150deg, var(--accent) 0%, color-mix(in srgb, var(--accent) 70%, black 20%) 100%);
+    padding: 56px 0 40px;
+    color: #fff;
+  }
+
+  .case-band-inner .eyebrow {
+    margin-bottom: 10px;
+    opacity: 0.85;
+  }
+
+  .case-title {
+    font-size: clamp(26px, 4vw, 34px);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+
+  .case-role {
+    opacity: 0.85;
+    font-size: 15px;
+  }
+
+  .case-close {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.16);
+    border: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 200ms var(--ease-out);
+  }
+
+  .case-close:hover {
+    background: rgba(255, 255, 255, 0.28);
+  }
+
+  .case-content {
+    padding: 40px 24px 56px;
+  }
+
+  @media (min-width: 900px) {
+    .case-content {
+      padding: 48px 48px 64px;
+    }
+  }
+
+  .case-section {
+    padding: 28px 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .case-section:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .case-section h3 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin-bottom: 16px;
+  }
+
+  .case-section > p {
+    color: var(--color-ink-soft);
+    font-size: 16px;
+    line-height: 1.65;
+    max-width: 640px;
+  }
+
+  .mock-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .mock-placeholder {
+    aspect-ratio: 16 / 10;
+    border: 1px dashed var(--color-ink-soft);
+    border-radius: 12px;
+    background: var(--color-bg);
+  }
+</style>

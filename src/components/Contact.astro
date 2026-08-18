@@ -1,0 +1,47 @@
+---
+const email = "chanrithysila@eastbuys.com";
+const telegram = "https://t.me/sovannarothry";
+const linkedin = "https://www.linkedin.com/in/sovannaroth-ry/";
+const behance = "https://www.behance.net/sovannaroth_ry";
+const resume = "https://drive.google.com/file/d/16TWY3ZuYEtn1HPYO7rAfzhhaZNJS0GEx/view?usp=sharing";
+---
+
+<footer id="contact" class="section contact">
+  <div class="wrap center">
+    <p class="eyebrow reveal">Contact</p>
+    <h2 class="section-heading reveal">Let's talk</h2>
+    <p class="section-lede center reveal">
+      Open to new opportunities and collaborations. The fastest way to reach me is Telegram.
+    </p>
+
+    <div class="contact-actions reveal">
+      <a href={telegram} target="_blank" rel="noopener noreferrer" class="btn btn-primary">Telegram</a>
+      <a href={`mailto:${email}`} class="btn btn-ghost">Email me</a>
+      <a href={linkedin} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">LinkedIn</a>
+      <a href={behance} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Behance</a>
+      <a href={resume} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">Download résumé</a>
+    </div>
+
+    <p class="contact-footnote reveal">© {new Date().getFullYear()} Ry Sovannaroth. UX/UI Designer based in Phnom Penh.</p>
+  </div>
+</footer>
+
+<style>
+  .contact {
+    padding-bottom: 80px;
+  }
+
+  .contact-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 36px;
+  }
+
+  .contact-footnote {
+    margin-top: 96px;
+    font-size: 13px;
+    color: var(--color-ink-soft);
+  }
+</style>

@@ -1,0 +1,109 @@
+---
+import { Image } from "astro:assets";
+import avatar from "../assets/smallAvatar.svg";
+
+const principles = [
+  { title: "Research-driven", body: "I start with the problem, not the pixels — user research and usability testing shape every decision." },
+  { title: "Systems thinking", body: "I design for the whole ecosystem, not just the screen in front of me, so products stay consistent as they scale." },
+  { title: "Cross-functional", body: "The best product decisions happen in the room with engineering and business, not after." },
+  { title: "Iterative craft", body: "Ship, learn, refine — polish comes from repetition, not a single pass." },
+];
+---
+
+<section id="about" class="section section-bg">
+  <div class="wrap about-grid">
+    <div class="about-portrait reveal-scale">
+      <Image src={avatar} alt="Portrait of Sovannaroth Ry" width={360} height={360} class="portrait-img" />
+    </div>
+
+    <div class="about-copy">
+      <p class="eyebrow reveal">About</p>
+      <h2 class="section-heading reveal">I turn complexity into clarity</h2>
+      <p class="about-bio reveal">
+        I'm a UX/UI designer based in Phnom Penh with 5+ years across multimedia,
+        e-commerce, and product design. I currently lead design for a food delivery platform's Customer, Driver,
+        Merchant, and Admin experiences, building design systems that keep things consistent as the product grows.
+        Before that, I shaped brand and web experience for a furniture retailer, and produced multimedia campaigns
+        for consumer electronics brands like Xiaomi and Amazfit. I care about turning research and stakeholder input
+        into interfaces people actually enjoy using.
+      </p>
+
+      <div class="principles">
+        {
+          principles.map((p) => (
+            <div class="principle reveal">
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-grid {
+    display: grid;
+    gap: 56px;
+    align-items: start;
+  }
+
+  @media (min-width: 860px) {
+    .about-grid {
+      grid-template-columns: 300px 1fr;
+      gap: 80px;
+    }
+  }
+
+  .about-portrait {
+    justify-self: center;
+  }
+
+  .portrait-img {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 24px 48px -20px rgba(29, 29, 31, 0.28);
+  }
+
+  @media (min-width: 860px) {
+    .portrait-img {
+      width: 280px;
+      height: 280px;
+    }
+  }
+
+  .about-bio {
+    max-width: 640px;
+    color: var(--color-ink-soft);
+    font-size: 17px;
+    line-height: 1.7;
+    margin-top: 4px;
+  }
+
+  .principles {
+    display: grid;
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  @media (min-width: 560px) {
+    .principles {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .principle h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .principle p {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--color-ink-soft);
+  }
+</style>

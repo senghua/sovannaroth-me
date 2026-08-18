@@ -1,0 +1,101 @@
+---
+---
+
+<section id="top" class="hero">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <p class="hero-eyebrow">Product Designer &middot; instructor</p>
+    <h1 class="hero-title">Sovannaroth Ry</h1>
+    <p class="hero-pitch">
+      "Designing human experiences at the intersection of AI, governance, and the people technology is supposed to serve.".
+    </p>
+    <div class="hero-actions">
+      <a href="#work" class="btn btn-primary">View My Work ↓</a>
+      <a href="#contact" class="btn btn-ghost">Let's talk</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    padding: 168px 0 var(--section-pad);
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: -220px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 560px;
+    background: radial-gradient(
+      ellipse at center,
+      color-mix(in srgb, var(--color-primary) 22%, transparent) 0%,
+      transparent 70%
+    );
+    animation: drift 14s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+
+  @keyframes drift {
+    from {
+      transform: translateX(-52%) translateY(0);
+    }
+    to {
+      transform: translateX(-48%) translateY(24px);
+    }
+  }
+
+  .hero-inner {
+    position: relative;
+    text-align: center;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    margin: 0 0 14px;
+  }
+
+  .hero-title {
+    font-size: clamp(40px, 6vw, 64px);
+    font-weight: 700;
+    line-height: 1.0625;
+    letter-spacing: -0.015em;
+    color: var(--color-ink);
+    margin: 0;
+  }
+
+  .hero-pitch {
+    max-width: 580px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: clamp(19px, 2.2vw, 28px);
+    font-weight: 400;
+    line-height: 1.381;
+    letter-spacing: 0.004em;
+    color: var(--color-ink-soft);
+    margin-top: 20px;
+  }
+
+  .hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 36px;
+    flex-wrap: wrap;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-glow {
+      animation: none;
+    }
+  }
+</style>
