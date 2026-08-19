@@ -2,12 +2,13 @@
 ---
 
 <section id="top" class="hero">
+  <div class="hero-dots" aria-hidden="true"></div>
   <div class="hero-glow" aria-hidden="true"></div>
   <div class="wrap hero-inner">
     <p class="hero-eyebrow">Product Designer &middot; instructor</p>
     <h1 class="hero-title">Sovannaroth Ry</h1>
     <p class="hero-pitch">
-      "Designing human experiences at the intersection of AI, governance, and the people technology is supposed to serve.".
+      "Designing human experiences at the intersection of AI, governance, and the people technology is supposed to serve."
     </p>
     <div class="hero-actions">
       <a href="#work" class="btn btn-primary">View My Work ↓</a>
@@ -21,6 +22,30 @@
     position: relative;
     padding: 168px 0 var(--section-pad);
     overflow: hidden;
+  }
+
+  .hero-dots {
+    position: absolute;
+    inset: -20px;
+    background-image: radial-gradient(
+      circle at center,
+      color-mix(in srgb, var(--color-ink) 30%, transparent) 1.5px,
+      transparent 1.5px
+    );
+    background-size: 22px 22px;
+    -webkit-mask-image: radial-gradient(ellipse 900px 640px at 50% 0%, black 0%, transparent 80%);
+    mask-image: radial-gradient(ellipse 900px 640px at 50% 0%, black 0%, transparent 80%);
+    animation: dot-drift 5s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes dot-drift {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 22px 22px;
+    }
   }
 
   .hero-glow {
@@ -94,7 +119,8 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-glow {
+    .hero-glow,
+    .hero-dots {
       animation: none;
     }
   }
