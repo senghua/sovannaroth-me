@@ -2,78 +2,19 @@
 ---
 
 <section id="top" class="hero">
-  <div class="hero-bg" aria-hidden="true">
-    <div class="hero-glow hero-glow-a" style="--depth: 14px;"></div>
-    <div class="hero-glow hero-glow-b" style="--depth: 22px;"></div>
-    <div class="hero-grid"></div>
-
-    <div class="hero-deco hero-deco-1" style="--depth: 18px;">
-      <svg class="marquee" width="128" height="92" viewBox="0 0 128 92" fill="none">
-        <rect x="3" y="3" width="122" height="86" rx="12" stroke="var(--color-primary)" stroke-width="1.5" stroke-dasharray="6 5" />
-      </svg>
-    </div>
-
-    <div class="hero-deco hero-deco-2" style="--depth: 26px;">
-      <div class="deco-layers">
-        <span></span><span></span><span></span>
-      </div>
-    </div>
-
-    <div class="hero-deco hero-deco-3" style="--depth: 20px;">
-      <div class="deco-swatches">
-        <i></i><i></i><i></i>
-      </div>
-    </div>
-
-    <div class="hero-deco hero-deco-4" style="--depth: 24px;">
-      <div class="deco-cursor">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-          <path d="M2 1.5 L15.5 8.2 L9.3 9.6 L7 16 Z" fill="var(--color-primary)" stroke="#fff" stroke-width="1" stroke-linejoin="round" />
-        </svg>
-        <span>Design</span>
-      </div>
-    </div>
-  </div>
-
+  <div class="hero-glow" aria-hidden="true"></div>
   <div class="wrap hero-inner">
-    <p class="hero-eyebrow hero-anim" style="--d: 0s">Product Designer &middot; instructor</p>
-    <h1 class="hero-title hero-anim" style="--d: 0.08s">Sovannaroth Ry</h1>
-    <p class="hero-pitch hero-anim" style="--d: 0.16s">
+    <p class="hero-eyebrow">Product Designer &middot; instructor</p>
+    <h1 class="hero-title">Sovannaroth Ry</h1>
+    <p class="hero-pitch">
       "Designing human experiences at the intersection of AI, governance, and the people technology is supposed to serve.".
     </p>
-    <div class="hero-actions hero-anim" style="--d: 0.24s">
+    <div class="hero-actions">
       <a href="#work" class="btn btn-primary">View My Work ↓</a>
       <a href="#contact" class="btn btn-ghost">Let's talk</a>
     </div>
   </div>
 </section>
-
-<script>
-  const hero = document.querySelector<HTMLElement>(".hero");
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  if (hero && !prefersReducedMotion) {
-    let raf = 0;
-
-    const applyTilt = (clientX: number, clientY: number) => {
-      const rect = hero.getBoundingClientRect();
-      const mx = ((clientX - rect.left) / rect.width - 0.5) * 2;
-      const my = ((clientY - rect.top) / rect.height - 0.5) * 2;
-      hero.style.setProperty("--mx", mx.toFixed(3));
-      hero.style.setProperty("--my", my.toFixed(3));
-    };
-
-    hero.addEventListener("pointermove", (e) => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => applyTilt(e.clientX, e.clientY));
-    });
-
-    hero.addEventListener("pointerleave", () => {
-      hero.style.setProperty("--mx", "0");
-      hero.style.setProperty("--my", "0");
-    });
-  }
-</script>
 
 <style>
   .hero {
@@ -82,50 +23,23 @@
     overflow: hidden;
   }
 
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* ---------- glow blobs ---------- */
-
   .hero-glow {
     position: absolute;
     top: -220px;
     left: 50%;
+    transform: translateX(-50%);
     width: 900px;
     height: 560px;
-    border-radius: 50%;
-    translate: calc(var(--mx, 0) * var(--depth, 10px)) calc(var(--my, 0) * var(--depth, 10px));
-    transition: translate 500ms var(--ease-out);
-  }
-
-  .hero-glow-a {
-    transform: translateX(-50%);
     background: radial-gradient(
       ellipse at center,
       color-mix(in srgb, var(--color-primary) 22%, transparent) 0%,
       transparent 70%
     );
-    animation: drift-a 14s ease-in-out infinite alternate;
+    animation: drift 14s ease-in-out infinite alternate;
+    pointer-events: none;
   }
 
-  .hero-glow-b {
-    top: -120px;
-    left: calc(50% + 260px);
-    width: 520px;
-    height: 420px;
-    background: radial-gradient(
-      ellipse at center,
-      color-mix(in srgb, #34c759 18%, transparent) 0%,
-      transparent 72%
-    );
-    animation: drift-b 18s ease-in-out infinite alternate;
-  }
-
-  @keyframes drift-a {
+  @keyframes drift {
     from {
       transform: translateX(-52%) translateY(0);
     }
@@ -134,184 +48,11 @@
     }
   }
 
-  @keyframes drift-b {
-    from {
-      transform: translate(0, 0) scale(1);
-    }
-    to {
-      transform: translate(-30px, 30px) scale(1.08);
-    }
-  }
-
-  /* ---------- canvas grid ---------- */
-
-  .hero-grid {
-    position: absolute;
-    inset: 0;
-    background-image: radial-gradient(color-mix(in srgb, var(--color-primary) 30%, transparent) 1px, transparent 1.6px);
-    background-size: 28px 28px;
-    mask-image: radial-gradient(ellipse 60% 55% at 50% 32%, black 0%, transparent 75%);
-    -webkit-mask-image: radial-gradient(ellipse 60% 55% at 50% 32%, black 0%, transparent 75%);
-    opacity: 0.5;
-  }
-
-  /* ---------- decorative UI artifacts ---------- */
-
-  .hero-deco {
-    position: absolute;
-    translate: calc(var(--mx, 0) * var(--depth, 10px)) calc(var(--my, 0) * var(--depth, 10px));
-    transition: translate 500ms var(--ease-out);
-  }
-
-  .hero-deco-1 {
-    top: 96px;
-    left: 6%;
-    animation: float-slow 7s ease-in-out infinite;
-  }
-
-  .hero-deco-2 {
-    bottom: 64px;
-    left: 10%;
-    animation: float-slow 8s ease-in-out infinite 0.4s;
-  }
-
-  .hero-deco-3 {
-    top: 128px;
-    right: 8%;
-    animation: float-slow 6.5s ease-in-out infinite 0.2s;
-  }
-
-  .hero-deco-4 {
-    bottom: 100px;
-    right: 9%;
-    animation: float-slow 7.5s ease-in-out infinite 0.6s;
-  }
-
-  @keyframes float-slow {
-    0%, 100% {
-      transform: translateY(0) rotate(0deg);
-    }
-    50% {
-      transform: translateY(-12px) rotate(1.5deg);
-    }
-  }
-
-  .marquee rect {
-    animation: marching 1.6s linear infinite;
-  }
-
-  @keyframes marching {
-    to {
-      stroke-dashoffset: -22;
-    }
-  }
-
-  .deco-layers {
-    position: relative;
-    width: 52px;
-    height: 52px;
-  }
-
-  .deco-layers span {
-    position: absolute;
-    inset: 0;
-    border-radius: 12px;
-    border: 1.5px solid var(--color-border);
-    background: color-mix(in srgb, var(--color-surface) 88%, transparent);
-    backdrop-filter: blur(6px);
-    box-shadow: 0 8px 20px rgba(29, 29, 31, 0.06);
-  }
-
-  .deco-layers span:nth-child(1) {
-    transform: rotate(-7deg);
-  }
-
-  .deco-layers span:nth-child(2) {
-    transform: translate(7px, 6px) rotate(3deg);
-    opacity: 0.85;
-  }
-
-  .deco-layers span:nth-child(3) {
-    transform: translate(14px, 12px) rotate(9deg);
-    opacity: 0.65;
-  }
-
-  .deco-swatches {
-    display: flex;
-    gap: 8px;
-    padding: 10px;
-    border-radius: 980px;
-    background: color-mix(in srgb, var(--color-surface) 82%, transparent);
-    border: 1px solid var(--color-border);
-    backdrop-filter: blur(6px);
-    box-shadow: 0 8px 20px rgba(29, 29, 31, 0.06);
-  }
-
-  .deco-swatches i {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    display: block;
-  }
-
-  .deco-swatches i:nth-child(1) {
-    background: var(--color-primary);
-  }
-
-  .deco-swatches i:nth-child(2) {
-    background: #34c759;
-  }
-
-  .deco-swatches i:nth-child(3) {
-    background: #ff9f0a;
-  }
-
-  .deco-cursor {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 14px 8px 10px;
-    border-radius: 980px;
-    background: color-mix(in srgb, var(--color-surface) 88%, transparent);
-    border: 1px solid var(--color-border);
-    backdrop-filter: blur(6px);
-    box-shadow: 0 8px 20px rgba(29, 29, 31, 0.08);
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--color-ink-soft);
-  }
-
-  @media (max-width: 900px) {
-    .hero-deco {
-      display: none;
-    }
-  }
-
-  /* ---------- content ---------- */
-
   .hero-inner {
     position: relative;
-    z-index: 1;
     text-align: center;
     max-width: 780px;
     margin: 0 auto;
-  }
-
-  .hero-anim {
-    opacity: 0;
-    animation: hero-fade-up 760ms var(--ease-out) forwards;
-    animation-delay: var(--d, 0s);
-  }
-
-  @keyframes hero-fade-up {
-    from {
-      opacity: 0;
-      transform: translateY(18px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
   }
 
   .hero-eyebrow {
@@ -353,23 +94,8 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-glow-a,
-    .hero-glow-b,
-    .hero-deco,
-    .marquee rect {
+    .hero-glow {
       animation: none;
-    }
-
-    .hero-glow,
-    .hero-deco {
-      translate: none;
-      transition: none;
-    }
-
-    .hero-anim {
-      opacity: 1;
-      animation: none;
-      transform: none;
     }
   }
 </style>
