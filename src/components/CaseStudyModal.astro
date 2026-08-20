@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 const { project } = Astro.props;
 ---
 
@@ -29,9 +30,11 @@ const { project } = Astro.props;
     <section class="case-section">
       <div class="mock-list">
         {
-          [1, 2, 3].map(() => (
-            <div class="mock-placeholder" />
-          ))
+          project.screens.length > 0
+            ? project.screens.map((screen: ImageMetadata) => (
+                <Image src={screen} alt={`${project.name} screen`} width={1920} class="case-screen" />
+              ))
+            : [1, 2, 3].map(() => <div class="mock-placeholder" />)
         }
       </div>
     </section>
@@ -145,5 +148,12 @@ const { project } = Astro.props;
     border: 1px dashed var(--color-ink-soft);
     border-radius: 12px;
     background: var(--color-bg);
+  }
+
+  .case-screen {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
   }
 </style>
