@@ -10,7 +10,7 @@
   --font-sans:
     -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", "Segoe UI", sans-serif;
 
-  --section-pad: 96px;
+  --section-pad: 72px;
   --max-text: 680px;
   --max-page: 1120px;
 
@@ -19,7 +19,7 @@
 
 @media (min-width: 900px) {
   :root {
-    --section-pad: 150px;
+    --section-pad: 104px;
   }
 }
 
