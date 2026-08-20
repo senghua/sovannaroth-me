@@ -28,7 +28,7 @@ export const projects = [
     accent: "#1D8A5F",
     platforms: ["iOS app", "Android app"],
     figmaUrl: null,
-    problem: "The project began with a thorough product analysis, outlining the required features, functionality and so on. This involved clarifying the project's scope, setting project deliverables, establishing the project timeline, and finalizing the proposal and agreement.TODO: describe the problem this project solved.",
+    problem: "The project began with a thorough product analysis, outlining the required features, functionality and so on. This involved clarifying the project's scope, setting project deliverables, establishing the project timeline, and finalizing the proposal and agreement",
     solution: "TODO: describe the solution and outcome.",
     features: [],
   },
