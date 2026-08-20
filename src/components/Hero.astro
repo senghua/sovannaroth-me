@@ -11,10 +11,15 @@
       "Designing human experiences at the intersection of AI, governance, and the people technology is supposed to serve."
     </p>
     <div class="hero-actions">
-      <a href="#work" class="btn btn-primary">View My Work ↓</a>
+      <a href="#work" class="btn btn-primary">View My Work</a>
       <a href="#contact" class="btn btn-ghost">Let's talk</a>
     </div>
   </div>
+
+  <a href="#work" class="scroll-cue" aria-label="Scroll to work section">
+    <span class="scroll-cue-chevron"></span>
+    <span class="scroll-cue-chevron"></span>
+  </a>
 </section>
 
 <style>
@@ -118,10 +123,69 @@
     flex-wrap: wrap;
   }
 
+  .scroll-cue {
+    position: absolute;
+    left: 50%;
+    bottom: 28px;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    width: 32px;
+    height: 24px;
+    opacity: 0.5;
+    transition: opacity 240ms var(--ease-out);
+  }
+
+  .scroll-cue:hover {
+    opacity: 0.9;
+  }
+
+  .scroll-cue-chevron {
+    width: 12px;
+    height: 12px;
+    border-right: 2px solid var(--color-ink-soft);
+    border-bottom: 2px solid var(--color-ink-soft);
+    transform: rotate(45deg);
+    animation: scroll-cue-bounce 1.8s var(--ease-out) infinite;
+  }
+
+  .scroll-cue-chevron:nth-child(2) {
+    margin-top: -8px;
+    animation-delay: 0.2s;
+  }
+
+  @keyframes scroll-cue-bounce {
+    0% {
+      opacity: 0.2;
+      transform: rotate(45deg) translate(0, 0);
+    }
+    50% {
+      opacity: 1;
+      transform: rotate(45deg) translate(4px, 4px);
+    }
+    100% {
+      opacity: 0.2;
+      transform: rotate(45deg) translate(0, 0);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .scroll-cue {
+      display: none;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .hero-glow,
     .hero-dots {
       animation: none;
+    }
+
+    .scroll-cue-chevron {
+      animation: none;
+      opacity: 0.6;
     }
   }
 </style>
