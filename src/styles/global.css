@@ -59,6 +59,25 @@ ul {
   list-style: none;
 }
 
+.skip-link {
+  position: absolute;
+  top: -48px;
+  left: 12px;
+  z-index: 100;
+  background: var(--color-primary);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 200ms var(--ease-out);
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
 .wrap {
   width: 100%;
   max-width: var(--max-page);

@@ -25,19 +25,54 @@ const { project } = Astro.props;
     <section class="case-section case-section-divider">
       <h3>Role</h3>
       <p>{project.role}</p>
+      {
+        project.platforms?.length > 0 && (
+          <ul class="platform-list">
+            {project.platforms.map((platform: string) => <li class="platform-pill">{platform}</li>)}
+          </ul>
+        )
+      }
     </section>
 
-    <section class="case-section">
-      <div class="mock-list">
-        {
-          project.screens.length > 0
-            ? project.screens.map((screen: ImageMetadata) => (
-                <Image src={screen} alt={`${project.name} screen`} width={1920} class="case-screen" />
-              ))
-            : [1, 2, 3].map(() => <div class="mock-placeholder" />)
-        }
-      </div>
-    </section>
+    {
+      project.solution && !project.solution.startsWith("TODO") && (
+        <section class="case-section case-section-divider">
+          <h3>Solution</h3>
+          <p>{project.solution}</p>
+        </section>
+      )
+    }
+
+    {
+      project.features?.length > 0 && (
+        <section class="case-section case-section-divider">
+          <h3>What it does</h3>
+          <div class="feature-grid">
+            {project.features.map((group: { title: string; items: string[] }) => (
+              <div class="feature-group">
+                <h4>{group.title}</h4>
+                <ul>
+                  {group.items.map((item: string) => <li>{item}</li>)}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      project.screens.length > 0 && (
+        <section class="case-section case-section-divider">
+          <h3>Screens</h3>
+          <div class="mock-list">
+            {project.screens.map((screen: ImageMetadata) => (
+              <Image src={screen} alt={`${project.name} screen`} width={1920} class="case-screen" />
+            ))}
+          </div>
+        </section>
+      )
+    }
   </div>
 </dialog>
 
@@ -137,17 +172,69 @@ const { project } = Astro.props;
     max-width: 640px;
   }
 
+  .platform-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+
+  .platform-pill {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-ink-soft);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 980px;
+    padding: 6px 14px;
+  }
+
+  .feature-grid {
+    display: grid;
+    gap: 24px;
+  }
+
+  @media (min-width: 600px) {
+    .feature-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .feature-group h4 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .feature-group ul {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .feature-group li {
+    font-size: 15px;
+    color: var(--color-ink-soft);
+    line-height: 1.5;
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .feature-group li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--color-primary);
+  }
+
   .mock-list {
     display: flex;
     flex-direction: column;
     gap: 16px;
-  }
-
-  .mock-placeholder {
-    aspect-ratio: 16 / 10;
-    border: 1px dashed var(--color-ink-soft);
-    border-radius: 12px;
-    background: var(--color-bg);
   }
 
   .case-screen {

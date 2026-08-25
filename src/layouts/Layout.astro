@@ -1,6 +1,9 @@
 ---
 import "../styles/global.css";
+import { getImage } from "astro:assets";
 import smallAvatar from "../assets/smallAvatar.svg";
+import appleTouchIcon from "../assets/apple-touch-icon.png";
+import ogSource from "../assets/thumbnails/east-buy.jpg";
 
 interface Props {
   title?: string;
@@ -11,6 +14,35 @@ const {
   title = "Sovannaroth Ry — Senior UX/UI Designer",
   description = "Senior UX/UI Designer based in Phnom Penh, Cambodia. Leads design across Customer, Driver, Merchant, and Admin experiences at EAST BUY.",
 } = Astro.props;
+
+const siteUrl = Astro.site ?? new URL("https://sovannaroth.me");
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
+
+const ogImage = await getImage({ src: ogSource, width: 1200, height: 630, fit: "cover", format: "jpeg" });
+const ogImageUrl = new URL(ogImage.src, siteUrl).toString();
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Sovannaroth Ry",
+  jobTitle: "Senior UX/UI Designer",
+  url: siteUrl.toString(),
+  image: ogImageUrl,
+  worksFor: {
+    "@type": "Organization",
+    name: "EAST BUY",
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Phnom Penh",
+    addressCountry: "KH",
+  },
+  sameAs: [
+    "https://www.linkedin.com/in/sovannaroth-ry/",
+    "https://www.behance.net/sovannaroth_ry",
+    "https://t.me/sovannarothry",
+  ],
+};
 ---
 
 <!doctype html>
@@ -18,13 +50,37 @@ const {
   <head>
     <meta charset="utf-8" />
     <link rel="icon" type="image/svg+xml" href={smallAvatar.src} />
-    <link rel="apple-touch-icon" href={smallAvatar.src} />
+    <link rel="apple-touch-icon" href={appleTouchIcon.src} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Sovannaroth Ry" />
+    <meta name="theme-color" content="#0F53B9" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Sovannaroth Ry" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
     <title>{title}</title>
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
   </head>
   <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <slot />
     <script>
       const observer = new IntersectionObserver(

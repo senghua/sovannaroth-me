@@ -17,7 +17,7 @@ export const projects = [
   {
     slug: "east-land-and-home",
     name: "EAST LAND AND HOME",
-    subtitle: "Property Search & Booking App — UX/UI Case Study",
+    subtitle: "Property search & booking app",
     role: "Product Analytics | UX Researcher | UI Designer | UI Auditor",
     period: "TBD",
     oneLiner: "TODO: add a one-line summary for East Land and Home.",
@@ -35,8 +35,8 @@ export const projects = [
   {
     slug: "pluto",
     name: "Pluto",
-    subtitle: "Fintech Mobile Wallet App | UI/UX Case Study",
-    role: "Product Design | UX Researcher | UI Designer | Branding | UI Auditor ",
+    subtitle: "Fintech mobile wallet app",
+    role: "Product Design | UX Researcher | UI Designer | Branding | UI Auditor",
     period: "TBD",
     oneLiner: "Pluto is a modern mobile wallet designed to simplify peer-to-peer (P2P) transactions. By leveraging seamless QR code technology, it delivers fast, secure, and effortless transfers with an intuitive user experience at its core.",
     tags: ["Product design", "UX/UI", "Fintech"],
