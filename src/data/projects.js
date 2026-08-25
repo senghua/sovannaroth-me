@@ -54,7 +54,7 @@ export const projects = [
     slug: "east-buy",
     name: "EAST BUY",
     subtitle: "Food delivery ecosystem",
-    role: "Lead Product Designer",
+    role: "Senior UX/UI Designer",
     period: "Mar 2025 — Present",
     oneLiner:
       "Led design across Customer, Driver, Merchant, and Admin — four interconnected platforms built on one shared design system.",
