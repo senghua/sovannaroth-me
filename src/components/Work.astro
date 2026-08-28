@@ -21,6 +21,19 @@ import { projects } from "../data/projects";
 {projects.map((project) => <CaseStudyModal project={project} />)}
 
 <script>
+  function closeWithAnimation(dialog: HTMLDialogElement) {
+    if (dialog.dataset.closing) return;
+    dialog.dataset.closing = "true";
+    dialog.addEventListener(
+      "transitionend",
+      () => {
+        delete dialog.dataset.closing;
+        dialog.close();
+      },
+      { once: true }
+    );
+  }
+
   document.addEventListener("click", (e) => {
     const target = e.target as HTMLElement;
     const openTrigger = target.closest<HTMLElement>("[data-open-case]");
@@ -33,15 +46,28 @@ import { projects } from "../data/projects";
 
     const closeTrigger = target.closest<HTMLElement>("[data-close-case]");
     if (closeTrigger) {
-      closeTrigger.closest("dialog")?.close();
+      const dialog = closeTrigger.closest<HTMLDialogElement>("dialog");
+      if (dialog) closeWithAnimation(dialog);
       return;
     }
 
     const dialogEl = target.closest("dialog.case-dialog") as HTMLDialogElement | null;
     if (dialogEl && e.target === dialogEl) {
-      dialogEl.close();
+      closeWithAnimation(dialogEl);
     }
   });
+
+  document.addEventListener(
+    "cancel",
+    (e) => {
+      const dialog = e.target as HTMLDialogElement;
+      if (dialog.matches?.("dialog.case-dialog")) {
+        e.preventDefault();
+        closeWithAnimation(dialog);
+      }
+    },
+    true
+  );
 </script>
 
 <style>

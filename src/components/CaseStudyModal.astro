@@ -4,122 +4,63 @@ const { project } = Astro.props;
 ---
 
 <dialog id={`cs-${project.slug}`} class="case-dialog" style={`--accent: ${project.accent}`}>
-  <div class="case-band">
-    <button class="case-close" type="button" data-close-case aria-label="Close case study">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-        <path d="M2 2L14 14M14 2L2 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
-      </svg>
-    </button>
-    <div class="wrap case-band-inner">
-      <p class="eyebrow" style="color:#fff">{project.subtitle}</p>
-      <h2 class="case-title">{project.name}</h2>
-    </div>
-  </div>
+  <button class="case-close" type="button" data-close-case aria-label="Close case study">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <path d="M2 2L14 14M14 2L2 14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+    </svg>
+  </button>
 
-  <div class="wrap case-content">
-    <section class="case-section">
-      <h3>Project Overview</h3>
-      <p>{project.problem}</p>
-    </section>
-
-    <section class="case-section case-section-divider">
-      <h3>Role</h3>
-      <p>{project.role}</p>
-      {
-        project.platforms?.length > 0 && (
-          <ul class="platform-list">
-            {project.platforms.map((platform: string) => <li class="platform-pill">{platform}</li>)}
-          </ul>
-        )
-      }
-    </section>
-
-    {
-      project.solution && !project.solution.startsWith("TODO") && (
-        <section class="case-section case-section-divider">
-          <h3>Solution</h3>
-          <p>{project.solution}</p>
-        </section>
-      )
-    }
-
-    {
-      project.features?.length > 0 && (
-        <section class="case-section case-section-divider">
-          <h3>What it does</h3>
-          <div class="feature-grid">
-            {project.features.map((group: { title: string; items: string[] }) => (
-              <div class="feature-group">
-                <h4>{group.title}</h4>
-                <ul>
-                  {group.items.map((item: string) => <li>{item}</li>)}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </section>
-      )
-    }
-
-    {
-      project.screens.length > 0 && (
-        <section class="case-section case-section-divider">
-          <h3>Screens</h3>
-          <div class="mock-list">
-            {project.screens.map((screen: ImageMetadata) => (
-              <Image src={screen} alt={`${project.name} screen`} width={1920} class="case-screen" />
-            ))}
-          </div>
-        </section>
-      )
-    }
-  </div>
+  {
+    project.screens.length > 0 && (
+      <div class="mock-list">
+        {project.screens.map((screen: ImageMetadata) => (
+          <Image src={screen} alt={`${project.name} screen`} width={1920} class="case-screen" />
+        ))}
+      </div>
+    )
+  }
 </dialog>
 
 <style>
   .case-dialog {
-    width: min(920px, 92vw);
-    max-height: 88vh;
+    width: min(1200px, 94vw);
+    max-height: 90vh;
     padding: 0;
     border: none;
     border-radius: 20px;
     overflow: hidden;
     overflow-y: auto;
     color: var(--color-ink);
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
+  }
+
+  .case-dialog[data-closing] {
+    opacity: 0;
+    transform: scale(0.97);
   }
 
   .case-dialog::backdrop {
-    background: rgba(29, 29, 31, 0.55);
-    backdrop-filter: blur(4px);
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(14px);
+    transition: opacity 200ms var(--ease-out);
   }
 
-  .case-band {
-    position: relative;
-    background: linear-gradient(150deg, var(--accent) 0%, color-mix(in srgb, var(--accent) 70%, black 20%) 100%);
-    padding: 56px 0 40px;
-    color: #fff;
-  }
-
-  .case-band-inner .eyebrow {
-    margin-bottom: 10px;
-    opacity: 0.85;
-  }
-
-  .case-title {
-    font-size: clamp(26px, 4vw, 34px);
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    margin-bottom: 8px;
+  .case-dialog[data-closing]::backdrop {
+    opacity: 0;
   }
 
   .case-close {
-    position: absolute;
+    position: fixed;
     top: 18px;
     right: 18px;
+    z-index: 1;
     width: 34px;
     height: 34px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.16);
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(6px);
     border: none;
     color: #fff;
     display: flex;
@@ -130,117 +71,17 @@ const { project } = Astro.props;
   }
 
   .case-close:hover {
-    background: rgba(255, 255, 255, 0.28);
-  }
-
-  .case-content {
-    padding: 40px 24px 56px;
-  }
-
-  @media (min-width: 900px) {
-    .case-content {
-      padding: 48px 48px 64px;
-    }
-  }
-
-  .case-section {
-    padding: 28px 0;
-  }
-
-  .case-section:first-child {
-    padding-top: 0;
-  }
-
-  .case-section-divider {
-    border-top: 1px solid var(--color-border);
-    border-bottom: 1px solid var(--color-border);
-  }
-
-  .case-section h3 {
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--color-primary);
-    margin-bottom: 16px;
-  }
-
-  .case-section > p {
-    color: var(--color-ink-soft);
-    font-size: 16px;
-    line-height: 1.65;
-    max-width: 640px;
-  }
-
-  .platform-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 14px;
-  }
-
-  .platform-pill {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--color-ink-soft);
-    background: var(--color-bg);
-    border: 1px solid var(--color-border);
-    border-radius: 980px;
-    padding: 6px 14px;
-  }
-
-  .feature-grid {
-    display: grid;
-    gap: 24px;
-  }
-
-  @media (min-width: 600px) {
-    .feature-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  .feature-group h4 {
-    font-size: 15px;
-    font-weight: 600;
-    margin-bottom: 10px;
-  }
-
-  .feature-group ul {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .feature-group li {
-    font-size: 15px;
-    color: var(--color-ink-soft);
-    line-height: 1.5;
-    padding-left: 16px;
-    position: relative;
-  }
-
-  .feature-group li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 9px;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--color-primary);
+    background: rgba(0, 0, 0, 0.85);
   }
 
   .mock-list {
     display: flex;
     flex-direction: column;
-    gap: 16px;
   }
 
   .case-screen {
     width: 100%;
     height: auto;
     display: block;
-    border-radius: 12px;
   }
 </style>
