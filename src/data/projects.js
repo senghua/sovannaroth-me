@@ -3,6 +3,7 @@ import eastBuyThumbnail from "../assets/thumbnails/east-buy.jpg";
 import sambathThumbnail from "../assets/thumbnails/sambath-home.jpg";
 import tumpeangKuchThumbnail from "../assets/thumbnails/tumpeang-kuch.jpg";
 import eastLandAndHomeThumbnail from "../assets/thumbnails/east-land-and-home.jpeg";
+import chamkarSneCruiseThumbnail from "../assets/thumbnails/chamkar-sne-cruise.jpg";
 
 const screenModules = import.meta.glob("../assets/screens/*/*.{jpg,jpeg,png,webp}", { eager: true });
 
@@ -29,6 +30,7 @@ export const projects = [
     accent: "#E8720C",
     platforms: ["Customer app", "Driver app", "Merchant app", "Admin dashboard"],
     figmaUrl: null,
+    liveUrl: "https://share.google/F9DF7yr3BOUIfU2jK",
     problem:
       "East Buy needed four interconnected platforms — customer ordering, merchant operations, driver delivery, and internal admin — to work seamlessly together in real time. Before this project, the experience was fragmented: slow merchant operations, an inefficient driver workflow, no operational visibility, and an inconsistent experience across surfaces.",
     solution:
@@ -100,6 +102,25 @@ export const projects = [
       { title: "Browse & discovery", items: ["Category-first navigation", "Room & material filtering", "Modular campaign banners"] },
       { title: "Product pages", items: ["Large product photography", "Clear pricing & variants", "Related products"] },
     ],
+  },
+  {
+    slug: "chamkar-sne-cruise",
+    name: "Chamkar Sne Cruise",
+    subtitle: "Web Design & Development",
+    role: "TBD",
+    period: "TBD",
+    oneLiner: "TODO: add a one-line summary for Chamkar Sne Cruise.",
+    tags: ["Product design", "UX/UI"],
+    thumbnail: chamkarSneCruiseThumbnail,
+    screens: getScreens("chamkar-sne-cruise"),
+    frame: "browser",
+    accent: "#1D8A5F",
+    platforms: [],
+    figmaUrl: null,
+    liveUrl: "https://www.chamkarsnecruise.com/",
+    problem: "TODO: describe the problem.",
+    solution: "TODO: describe the solution and outcome.",
+    features: [],
   },
   {
     slug: "tumpeang-kuch",
