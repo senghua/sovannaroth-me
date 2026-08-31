@@ -91,6 +91,7 @@ export const projects = [
     accent: "#B4703A",
     platforms: ["Marketing site", "Product catalog"],
     figmaUrl: null,
+    liveUrl: "https://sambathhome.com/",
     problem:
       "Sambath needed a website that could carry seasonal marketing campaigns while making a large, varied furniture catalog easy to browse — without the experience feeling like a generic catalog dump.",
     solution:
