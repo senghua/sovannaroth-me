@@ -14,7 +14,7 @@ const { project } = Astro.props;
     project.screens.length > 0 && (
       <div class="mock-list">
         {project.screens.map((screen: ImageMetadata) => (
-          <Image src={screen} alt={`${project.name} screen`} width={1920} class="case-screen" />
+          <Image src={screen} alt={`${project.name} screen`} width={2400} quality={90} class="case-screen" />
         ))}
       </div>
     )
