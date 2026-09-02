@@ -1,7 +1,7 @@
 ---
 import "../styles/global.css";
 import { getImage } from "astro:assets";
-import smallAvatar from "../assets/smallAvatar.svg";
+import favicon from "../assets/sovannaroth.png";
 import appleTouchIcon from "../assets/apple-touch-icon.png";
 import ogSource from "../assets/thumbnails/east-buy.jpg";
 
@@ -49,7 +49,7 @@ const jsonLd = {
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href={smallAvatar.src} />
+    <link rel="icon" type="image/png" href={favicon.src} />
     <link rel="apple-touch-icon" href={appleTouchIcon.src} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />

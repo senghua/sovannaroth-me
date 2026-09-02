@@ -1,12 +1,15 @@
 ---
 import { Image } from "astro:assets";
 import certificate from "../assets/certificate.jpg";
+import ibmCertificate from "../assets/ibm.jpg";
+import adobeCertificate from "../assets/adobe.jpg";
 
 const education = [
-  { school: "Coursera", program: "Google UX Design Professional Certificate", period: "2025 — 2026", link: "#edu-cert" },
+  { school: "Coursera", program: "IBM UI/UX Designer Professional Certificate", period: "Jun 2026 — Sep 2026", link: "https://coursera.org/verify/professional-cert/BMXQFMYZY9A1" },
+  { school: "Coursera", program: "Creative Design Tools: Adobe Photoshop, Illustrator, Acrobat", period: "Jan 2026 — Mar 2026", link: "https://www.coursera.org/account/accomplishments/specialization/0QBA1SAIQ8LS" },
   { school: "DICHI Academy", program: "UX/UI Design: Practical Design for Modern Interfaces", period: "Nov 2025 — Jan 2026" },
-  { school: "SETEC Institute", program: "Management Information Systems, General", period: "2024 — Present" },
-  { school: "Coursera", program: "Creative Design Tools: Adobe Photoshop, Illustrator, Acrobat (Adobe)", period: "Jan 2026 — Mar 2026", link: "https://www.coursera.org/account/accomplishments/specialization/0QBA1SAIQ8LS" },
+  { school: "Coursera", program: "Google UX Design Professional Certificate", period: "Aug 2025 — Feb 2026", link: "https://www.coursera.org/account/accomplishments/specialization/BP8MGYEQZPXI" },
+  { school: "SETEC Institute", program: "Management Information Systems, General", period: "Dec 2024 — Present" },
 ];
 ---
 
@@ -39,6 +42,14 @@ const education = [
         })
       }
     </ul>
+
+    <div class="edu-cert reveal">
+      <Image src={ibmCertificate} alt="IBM UI/UX Designer Professional Certificate" width={1200} quality={100} class="edu-cert-img" />
+    </div>
+
+    <div class="edu-cert reveal">
+      <Image src={adobeCertificate} alt="Creative Design Tools: Adobe Photoshop, Illustrator, Acrobat Certificate" width={1200} quality={100} class="edu-cert-img" />
+    </div>
 
     <div id="edu-cert" class="edu-cert reveal">
       <Image src={certificate} alt="Google UX Design Professional Certificate" width={1200} quality={100} class="edu-cert-img" />

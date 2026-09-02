@@ -4,13 +4,13 @@ const roles = [
     org: "EAST BUY CO., LTD",
     title: "Senior UX/UI Designer",
     period: "March 2025 — Present",
-    body: "Leading design of the platform's core food delivery ecosystem — Customer, Driver, Merchant apps, and Admin Dashboard. Promoted from UX/UI Designer to Senior UX/UI Designer. Responsible for collaborating with product, engineering, and business teams to align and deliver requirements across all platforms, conducting user and stakeholder interviews to translate pain points into design decisions, and building a design system with reusable components to ensure consistency across the ecosystem, backed by ongoing usability testing.",
+    body: "Led design of the platform's core food delivery ecosystem — Customer, Driver, Merchant apps, and Admin Dashboard. Collaborated with product, engineering, and business teams to align and deliver requirements across all platforms. Conducted user and stakeholder interviews to translate pain points into design decisions. Built a design system with reusable components, and led usability testing to ensure consistency across the ecosystem.",
   },
   {
     org: "Sambath Home Kitchen & Furniture",
     title: "Senior Product Designer",
     period: "Mar 2023 — Jan 2025",
-    body: "I was responsible for designing and maintaining the Sambath Home website, improving how users browse and discover furniture products. I shaped marketing campaign direction based on business goals, sales feedback, and client input, and produced brand visuals while directing photo and video content from completed projects — working closely with the digital team to keep site and brand assets consistent.",
+    body: "Led ongoing design and iteration of the company website, improving product discovery and browsing flows for users. Translated business goals, sales feedback, and client input into design and marketing direction. Partnered with the digital team to maintain consistency across site and brand assets.",
   },
   {
     org: "Tech-Zone Group",
@@ -22,7 +22,7 @@ const roles = [
 
 const volunteer = {
   org: "Tumpeang Kuch",
-  title: "Product Designer (Volunteer)",
+  title: "Lead UX/UI Designer (Volunteer)",
   period: "Aug 2024 — Present",
   body: "I led UX/UI design for the organization's website and designed the community's brand guide. I also trained junior designers and students on UX/UI design.",
 };
@@ -41,9 +41,9 @@ const volunteer = {
             <div class="timeline-content">
               <div class="timeline-head">
                 <h3>{role.title}</h3>
-                <span class="timeline-period">{role.period}</span>
               </div>
               <p class="timeline-org">{role.org}</p>
+              <span class="timeline-period">{role.period}</span>
               <p class="timeline-body">{role.body}</p>
             </div>
           </div>
@@ -55,9 +55,9 @@ const volunteer = {
         <div class="timeline-content">
           <div class="timeline-head">
             <h3>{volunteer.title}</h3>
-            <span class="timeline-period">{volunteer.period}</span>
           </div>
           <p class="timeline-org">{volunteer.org}</p>
+          <span class="timeline-period">{volunteer.period}</span>
           <p class="timeline-body">{volunteer.body}</p>
         </div>
       </div>
@@ -125,8 +125,10 @@ const volunteer = {
   }
 
   .timeline-period {
+    display: block;
     font-size: 13px;
     color: var(--color-ink-soft);
+    margin-top: 2px;
   }
 
   .timeline-org {
