@@ -11,8 +11,19 @@ const { project } = Astro.props;
   </button>
 
   {
-    project.screens.length > 0 && (
+    (project.video || project.screens.length > 0) && (
       <div class="mock-list">
+        {project.video && (
+          <video
+            src={project.video}
+            class="case-video"
+            controls
+            muted
+            loop
+            playsinline
+            preload="auto"
+          />
+        )}
         {project.screens.map((screen: ImageMetadata) => (
           <Image src={screen} alt={`${project.name} screen`} width={2400} quality={90} class="case-screen" />
         ))}
@@ -83,5 +94,12 @@ const { project } = Astro.props;
     width: 100%;
     height: auto;
     display: block;
+  }
+
+  .case-video {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: #000;
   }
 </style>

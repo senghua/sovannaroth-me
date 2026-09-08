@@ -24,6 +24,7 @@ import { projects } from "../data/projects";
   function closeWithAnimation(dialog: HTMLDialogElement) {
     if (dialog.dataset.closing) return;
     dialog.dataset.closing = "true";
+    dialog.querySelector<HTMLVideoElement>(".case-video")?.pause();
     dialog.addEventListener(
       "transitionend",
       () => {
@@ -41,6 +42,7 @@ import { projects } from "../data/projects";
       const slug = openTrigger.dataset.openCase;
       const dialog = document.getElementById(`cs-${slug}`) as HTMLDialogElement | null;
       dialog?.showModal();
+      dialog?.querySelector<HTMLVideoElement>(".case-video")?.play();
       return;
     }
 

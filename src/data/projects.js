@@ -5,6 +5,7 @@ import tumpeangKuchThumbnail from "../assets/thumbnails/tumpeang-kuch.jpg";
 import eastLandAndHomeThumbnail from "../assets/thumbnails/east-land-and-home.jpeg";
 import chamkarSneCruiseThumbnail from "../assets/thumbnails/chamkar-sne-cruise.jpg";
 import kbPrasacBankThumbnail from "../assets/thumbnails/kb-prasac-bank.jpg";
+import kbPrasacBankVideo from "../assets/screens/kb-prasac-bank/kb-prasac.webm";
 
 const screenModules = import.meta.glob("../assets/screens/*/*.{jpg,jpeg,png,webp}", { eager: true });
 
@@ -26,6 +27,7 @@ export const projects = [
       "A concept redesign of KB PRASAC's mobile home screen, worked through discover, define, ideate, design, and validate.",
     tags: ["Product design", "UX/UI", "Fintech"],
     thumbnail: kbPrasacBankThumbnail,
+    video: kbPrasacBankVideo,
     screens: getScreens("kb-prasac-bank"),
     frame: "phone",
     accent: "#8A1C1C",
