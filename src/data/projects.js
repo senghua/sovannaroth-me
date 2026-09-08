@@ -4,6 +4,7 @@ import sambathThumbnail from "../assets/thumbnails/sambath-home.jpg";
 import tumpeangKuchThumbnail from "../assets/thumbnails/tumpeang-kuch.jpg";
 import eastLandAndHomeThumbnail from "../assets/thumbnails/east-land-and-home.jpeg";
 import chamkarSneCruiseThumbnail from "../assets/thumbnails/chamkar-sne-cruise.jpg";
+import kbPrasacBankThumbnail from "../assets/thumbnails/kb-prasac-bank.jpg";
 
 const screenModules = import.meta.glob("../assets/screens/*/*.{jpg,jpeg,png,webp}", { eager: true });
 
@@ -15,6 +16,25 @@ function getScreens(slug) {
 }
 
 export const projects = [
+  {
+    slug: "kb-prasac-bank",
+    name: "KB PRASAC Bank",
+    subtitle: "A concept redesign of KB PRASAC's mobile home screen, worked through discover, define, ideate, design, and validate.",
+    role: "TBD",
+    period: "TBD",
+    oneLiner:
+      "A concept redesign of KB PRASAC's mobile home screen, worked through discover, define, ideate, design, and validate.",
+    tags: ["Product design", "UX/UI", "Fintech"],
+    thumbnail: kbPrasacBankThumbnail,
+    screens: getScreens("kb-prasac-bank"),
+    frame: "phone",
+    accent: "#8A1C1C",
+    platforms: ["Mobile app"],
+    figmaUrl: null,
+    problem: "TODO: describe the problem.",
+    solution: "TODO: describe the solution and outcome.",
+    features: [],
+  },
   {
     slug: "east-buy",
     name: "EAST BUY",
