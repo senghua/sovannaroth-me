@@ -22,6 +22,7 @@ const resume = "https://drive.google.com/file/d/1ttv-B6nIrvI7kcPUUmjXyDK-IYA5mJS
       <a href={resume} target="_blank" rel="noopener noreferrer" class="btn btn-ghost">View resume</a>
     </div>
 
+    <p class="contact-footnote reveal">More ways to contact: Call <a href="tel:089388810" class="footnote-link">089 388 810</a>.</p>
     <p class="contact-footnote reveal">© {new Date().getFullYear()} Sovannaroth RY. UX/UI Designer based in Phnom Penh.</p>
   </div>
 </footer>
@@ -40,8 +41,20 @@ const resume = "https://drive.google.com/file/d/1ttv-B6nIrvI7kcPUUmjXyDK-IYA5mJS
   }
 
   .contact-footnote {
-    margin-top: 96px;
+    margin-top: 16px;
     font-size: 13px;
     color: var(--color-ink-soft);
+  }
+
+  .contact-footnote:first-of-type {
+    margin-top: 120px;
+  }
+
+  .footnote-link {
+    color: #06c;
+  }
+
+  .footnote-link:hover {
+    text-decoration: underline;
   }
 </style>
