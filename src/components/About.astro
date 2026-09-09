@@ -13,7 +13,15 @@ const principles = [
 <section id="about" class="section section-bg">
   <div class="wrap about-grid">
     <div class="about-portrait reveal-scale">
-      <Image src={avatar} alt="Portrait of Sovannaroth Ry" width={800} height={800} quality="high" class="portrait-img" />
+      <Image
+        src={avatar}
+        alt="Portrait of Sovannaroth Ry"
+        width={280}
+        height={280}
+        densities={[1, 2]}
+        quality={80}
+        class="portrait-img"
+      />
     </div>
 
     <div class="about-copy">

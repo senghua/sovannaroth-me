@@ -1,6 +1,10 @@
 ---
-import { Image } from "astro:assets";
+import { Image, getImage } from "astro:assets";
 const { project } = Astro.props;
+
+const poster = project.video
+  ? await getImage({ src: project.thumbnail, width: 1200, format: "webp", quality: 65 })
+  : null;
 ---
 
 <dialog id={`cs-${project.slug}`} class="case-dialog" style={`--accent: ${project.accent}`}>
@@ -16,16 +20,25 @@ const { project } = Astro.props;
         {project.video && (
           <video
             src={project.video}
+            poster={poster?.src}
             class="case-video"
             controls
             muted
             loop
             playsinline
-            preload="auto"
+            preload="none"
           />
         )}
         {project.screens.map((screen: ImageMetadata) => (
-          <Image src={screen} alt={`${project.name} screen`} width={2400} quality={90} class="case-screen" />
+          <Image
+            src={screen}
+            alt={`${project.name} screen`}
+            width={1200}
+            widths={[600, 900, 1200, 2400]}
+            sizes="(min-width: 1200px) 1200px, 94vw"
+            quality={75}
+            class="case-screen"
+          />
         ))}
       </div>
     )

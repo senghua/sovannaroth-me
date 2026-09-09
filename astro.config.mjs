@@ -6,4 +6,9 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://sovannaroth.me',
   integrations: [sitemap()],
+  build: {
+    // Single-page site — inline the one CSS file so the browser can paint
+    // without an extra render-blocking request.
+    inlineStylesheets: 'always',
+  },
 });
