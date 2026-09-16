@@ -1,0 +1,71 @@
+<button
+  type="button"
+  class="scroll-top"
+  id="scroll-top"
+  aria-label="Back to top"
+  data-scroll-top
+>
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M12 19V5M12 5L5 12M12 5L19 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+  </svg>
+</button>
+
+<script>
+  const button = document.querySelector<HTMLButtonElement>("[data-scroll-top]");
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      button?.classList.toggle("active", window.scrollY > 480);
+    },
+    { passive: true }
+  );
+
+  button?.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+</script>
+
+<style>
+  .scroll-top {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-nav-bg-solid);
+    backdrop-filter: blur(14px) saturate(180%);
+    -webkit-backdrop-filter: blur(14px) saturate(180%);
+    color: var(--color-ink);
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    box-shadow: 0 8px 24px -8px color-mix(in srgb, var(--color-shadow) 28%, transparent);
+    transition: opacity 240ms var(--ease-out), transform 240ms var(--ease-out), visibility 240ms;
+  }
+
+  .scroll-top.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .scroll-top:hover {
+    color: var(--color-primary);
+  }
+
+  @media (min-width: 720px) {
+    .scroll-top {
+      right: 28px;
+      bottom: 28px;
+    }
+  }
+</style>

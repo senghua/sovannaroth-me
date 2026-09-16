@@ -4,6 +4,7 @@ import { getImage } from "astro:assets";
 import favicon from "../assets/favicon.png";
 import appleTouchIcon from "../assets/apple-touch-icon.png";
 import ogSource from "../assets/thumbnails/east-buy.jpg";
+import ScrollTop from "../components/ScrollTop.astro";
 
 interface Props {
   title?: string;
@@ -83,6 +84,7 @@ const jsonLd = {
   <body>
     <a href="#main-content" class="skip-link">Skip to content</a>
     <slot />
+    <ScrollTop />
     <script>
       const observer = new IntersectionObserver(
         (entries) => {
