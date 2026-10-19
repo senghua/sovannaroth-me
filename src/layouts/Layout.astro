@@ -1,8 +1,7 @@
 ---
 import "../styles/global.css";
 import { getImage } from "astro:assets";
-import favicon from "../assets/favicon.png";
-import appleTouchIcon from "../assets/apple-touch-icon.png";
+import portrait from "../assets/sovannaroth.jpeg";
 import ogSource from "../assets/thumbnails/east-buy.jpg";
 import ScrollTop from "../components/ScrollTop.astro";
 
@@ -19,6 +18,8 @@ const {
 const siteUrl = Astro.site ?? new URL("https://sovannaroth.me");
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
 
+const favicon = await getImage({ src: portrait, width: 32, height: 32, fit: "cover", format: "png" });
+const appleTouchIcon = await getImage({ src: portrait, width: 180, height: 180, fit: "cover", format: "png" });
 const ogImage = await getImage({ src: ogSource, width: 1200, height: 630, fit: "cover", format: "jpeg" });
 const ogImageUrl = new URL(ogImage.src, siteUrl).toString();
 
@@ -50,8 +51,8 @@ const jsonLd = {
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href={favicon.src} />
-    <link rel="apple-touch-icon" href={appleTouchIcon.src} />
+    <link rel="icon" type="image/png" sizes="32x32" href={favicon.src} />
+    <link rel="apple-touch-icon" sizes="180x180" href={appleTouchIcon.src} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
     <meta name="robots" content="index, follow" />
