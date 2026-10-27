@@ -1,0 +1,304 @@
+---
+import { Image, getImage } from "astro:assets";
+import ibm from "../assets/ibm.jpg";
+import adobe from "../assets/adobe.jpg";
+import google from "../assets/certificate.jpg";
+
+const certificates = await Promise.all([
+  { image: ibm, title: "IBM UI/UX Designer", issuer: "IBM · Professional Certificate" },
+  { image: adobe, title: "Creative Design Tools", issuer: "Adobe · Photoshop, Illustrator & Acrobat" },
+  { image: google, title: "Google UX Design", issuer: "Google · Professional Certificate" },
+].map(async (item) => ({
+  ...item,
+  full: await getImage({ src: item.image, width: Math.min(2200, item.image.width), quality: 90, format: "webp" }),
+})));
+---
+
+<certificate-carousel id="edu-cert" class="reveal" role="region" aria-roledescription="carousel" aria-label="Professional certificates">
+  <div class="certificate-stage">
+    {certificates.map((item, index) => (
+      <a
+        class="certificate-card"
+        href={item.full.src}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-position={index === 0 ? "center" : index === 1 ? "right" : "left"}
+        data-title={item.title}
+        data-issuer={item.issuer}
+        aria-label={`View ${item.title} certificate`}
+        aria-current={index === 0 ? "true" : undefined}
+      >
+        <Image
+          src={item.image}
+          alt={`${item.title} certificate awarded to Sovannaroth Ry`}
+          width={640}
+          widths={[400, 640, 1120]}
+          sizes="(min-width: 1000px) 560px, (min-width: 600px) 58vw, 78vw"
+          quality={85}
+          draggable="false"
+        />
+        <span class="certificate-expand" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <path d="M14 4h6v6M20 4l-7 7M10 20H4v-6M4 20l7-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+      </a>
+    ))}
+  </div>
+
+  <div class="certificate-caption" aria-live="polite" aria-atomic="true">
+    <h3 data-caption-title>{certificates[0].title}</h3>
+    <p data-caption-issuer>{certificates[0].issuer}</p>
+    <span class="sr-only" data-counter>Certificate 1 of {certificates.length}</span>
+  </div>
+
+  <div class="certificate-controls">
+    <button type="button" class="arrow" data-previous aria-label="Previous certificate">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="m14 6-6 6 6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+    <div class="certificate-dots" role="group" aria-label="Choose a certificate">
+      {certificates.map((item, index) => (
+        <button type="button" class="dot" aria-label={`Show ${item.title}`} aria-pressed={index === 0 ? "true" : "false"} data-index={index}>
+          <span></span>
+        </button>
+      ))}
+    </div>
+    <button type="button" class="arrow" data-next aria-label="Next certificate">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="m10 6 6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+  </div>
+  <p class="certificate-hint">Swipe or use the arrows to explore. Select the center certificate to enlarge.</p>
+
+  <dialog class="certificate-dialog" aria-label="Certificate preview">
+    <div class="preview-toolbar">
+      <button type="button" class="arrow" data-preview-previous aria-label="Previous certificate">←</button>
+      <p data-preview-title>{certificates[0].title}</p>
+      <button type="button" class="arrow" data-preview-next aria-label="Next certificate">→</button>
+      <button type="button" class="arrow" data-close aria-label="Close certificate preview">✕</button>
+    </div>
+    <img class="preview-image" width={certificates[0].image.width} height={certificates[0].image.height} alt="" />
+  </dialog>
+</certificate-carousel>
+
+<script>
+  class CertificateCarousel extends HTMLElement {
+    connectedCallback() {
+      if (this.dataset.initialized) return;
+      this.dataset.initialized = "true";
+
+      const cards = [...this.querySelectorAll<HTMLAnchorElement>(".certificate-card")];
+      const dots = [...this.querySelectorAll<HTMLButtonElement>(".dot")];
+      const stage = this.querySelector<HTMLElement>(".certificate-stage")!;
+      const dialog = this.querySelector<HTMLDialogElement>("dialog")!;
+      const preview = this.querySelector<HTMLImageElement>(".preview-image")!;
+      let active = 0;
+      let start: { x: number; y: number } | null = null;
+      let swiped = false;
+
+      const updatePreview = () => {
+        preview.src = cards[active].href;
+        preview.alt = `${cards[active].dataset.title} certificate awarded to Sovannaroth Ry`;
+        this.querySelector("[data-preview-title]")!.textContent = cards[active].dataset.title!;
+      };
+
+      const select = (index: number) => {
+        active = (index + cards.length) % cards.length;
+        cards.forEach((card, i) => {
+          const offset = (i - active + cards.length) % cards.length;
+          card.dataset.position = offset === 0 ? "center" : offset === 1 ? "right" : "left";
+          if (i === active) card.setAttribute("aria-current", "true");
+          else card.removeAttribute("aria-current");
+          dots[i].setAttribute("aria-pressed", String(i === active));
+        });
+        this.querySelector("[data-caption-title]")!.textContent = cards[active].dataset.title!;
+        this.querySelector("[data-caption-issuer]")!.textContent = cards[active].dataset.issuer!;
+        this.querySelector("[data-counter]")!.textContent = `Certificate ${active + 1} of ${cards.length}`;
+        if (dialog.open) updatePreview();
+      };
+
+      cards.forEach((card, index) => {
+        card.addEventListener("dragstart", (event) => event.preventDefault());
+        card.addEventListener("click", (event) => {
+          // Keep the image link available for opening in a new tab.
+          if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+          event.preventDefault();
+          if (swiped) { swiped = false; return; }
+          if (index !== active) { select(index); return; }
+          updatePreview();
+          dialog.showModal();
+        });
+      });
+      dots.forEach((dot, index) => dot.addEventListener("click", () => select(index)));
+      this.querySelector("[data-previous]")!.addEventListener("click", () => select(active - 1));
+      this.querySelector("[data-next]")!.addEventListener("click", () => select(active + 1));
+      this.querySelector("[data-preview-previous]")!.addEventListener("click", () => select(active - 1));
+      this.querySelector("[data-preview-next]")!.addEventListener("click", () => select(active + 1));
+      this.querySelector("[data-close]")!.addEventListener("click", () => dialog.close());
+      dialog.addEventListener("click", (event) => { if (event.target === dialog) dialog.close(); });
+
+      this.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft") { event.preventDefault(); select(active - 1); }
+        if (event.key === "ArrowRight") { event.preventDefault(); select(active + 1); }
+        if (event.key === "Home") { event.preventDefault(); select(0); }
+        if (event.key === "End") { event.preventDefault(); select(cards.length - 1); }
+      });
+      stage.addEventListener("pointerdown", (event) => {
+        if (!event.isPrimary || event.button !== 0) return;
+        start = { x: event.clientX, y: event.clientY };
+        swiped = false;
+      });
+      stage.addEventListener("pointerup", (event) => {
+        if (!start) return;
+        const dx = event.clientX - start.x;
+        const dy = event.clientY - start.y;
+        start = null;
+        if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+          swiped = true;
+          select(active + (dx < 0 ? 1 : -1));
+        }
+      });
+      stage.addEventListener("pointercancel", () => { start = null; });
+    }
+  }
+
+  if (!customElements.get("certificate-carousel")) {
+    customElements.define("certificate-carousel", CertificateCarousel);
+  }
+</script>
+
+<style>
+  certificate-carousel {
+    display: block;
+    margin: 56px auto 0;
+    text-align: center;
+  }
+
+  .certificate-stage {
+    position: relative;
+    isolation: isolate;
+    aspect-ratio: 1.95;
+    touch-action: pan-y pinch-zoom;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .certificate-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 58%;
+    max-width: 560px;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 12px 28px -12px color-mix(in srgb, var(--color-shadow) 30%, transparent);
+    transition: transform 600ms var(--ease-out), box-shadow 600ms var(--ease-out);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .certificate-card[data-position="center"] {
+    z-index: 3;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 24px 48px -18px color-mix(in srgb, var(--color-shadow) 35%, transparent);
+    cursor: zoom-in;
+  }
+
+  .certificate-card[data-position="left"] {
+    z-index: 1;
+    transform: translate(-96%, -46%) scale(0.78);
+  }
+
+  .certificate-card[data-position="right"] {
+    z-index: 2;
+    transform: translate(-4%, -46%) scale(0.78);
+  }
+
+  .certificate-card img {
+    width: 100%;
+    height: auto;
+    border-radius: inherit;
+  }
+
+  .certificate-expand {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(29, 29, 31, 0.75);
+    color: #fff;
+    opacity: 0;
+    transition: opacity 200ms;
+  }
+
+  .certificate-card[data-position="center"] .certificate-expand { opacity: 1; }
+  .certificate-card:focus-visible { z-index: 4; }
+  .certificate-caption { margin-top: 20px; }
+  .certificate-caption h3 { font-size: 18px; font-weight: 600; }
+  .certificate-caption p { margin-top: 4px; color: var(--color-ink-soft); font-size: 14px; }
+
+  .certificate-controls, .certificate-dots { display: flex; align-items: center; justify-content: center; }
+  .certificate-controls { gap: 18px; margin-top: 22px; }
+
+  .arrow {
+    display: inline-grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    background: var(--color-surface);
+    color: var(--color-ink);
+    font: inherit;
+    cursor: pointer;
+    transition: background 200ms, color 200ms;
+  }
+
+  .arrow:hover { background: var(--color-ink); color: var(--color-surface); }
+  .dot { display: grid; place-items: center; width: 28px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer; }
+  .dot span { width: 7px; height: 7px; border-radius: 20px; background: var(--color-ink-soft); opacity: 0.35; transition: width 250ms, opacity 250ms; }
+  .dot[aria-pressed="true"] span { width: 22px; background: var(--color-primary); opacity: 1; }
+  .certificate-hint { max-width: 320px; margin: 14px auto 0; font-size: 12px; color: var(--color-ink-soft); }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+  .certificate-dialog {
+    width: min(1200px, 94vw);
+    max-width: 94vw;
+    max-height: 92dvh;
+    padding: 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 20px;
+    background: var(--color-surface);
+    color: var(--color-ink);
+    overscroll-behavior: contain;
+  }
+
+  .certificate-dialog::backdrop { background: rgba(0, 0, 0, 0.78); backdrop-filter: blur(10px); }
+  .preview-toolbar { display: flex; align-items: center; gap: 8px; padding-bottom: 12px; }
+  .preview-toolbar p { flex: 1; font-size: 14px; font-weight: 500; }
+  .preview-image { width: 100%; height: auto; max-height: calc(92dvh - 96px); object-fit: contain; border-radius: 8px; }
+
+  @media (max-width: 599px) {
+    certificate-carousel { margin-top: 36px; }
+    .certificate-stage { aspect-ratio: 1.38; }
+    .certificate-card { width: 76%; border-radius: 10px; }
+    .certificate-card[data-position="left"] { transform: translate(-77%, -46%) scale(0.76); }
+    .certificate-card[data-position="right"] { transform: translate(-23%, -46%) scale(0.76); }
+    .certificate-caption { margin-top: 18px; }
+    .certificate-caption h3 { font-size: 17px; }
+    .certificate-caption p { font-size: 12px; }
+    .preview-toolbar { gap: 4px; }
+    .preview-toolbar p { font-size: 12px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .certificate-card, .certificate-expand, .arrow, .dot span { transition: none; }
+  }
+</style>
